@@ -76,7 +76,6 @@ public class YoudaoTranslate {
 		Scanner s = new Scanner(System.in);
 		String word = s.nextLine();
 		System.out.print(YoudaoTranslate.YoudaoSearch(word));
-		
 	}
 
 }
