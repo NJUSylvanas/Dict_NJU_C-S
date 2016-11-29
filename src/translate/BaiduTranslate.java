@@ -22,11 +22,11 @@ public class BaiduTranslate {
         try {
             String urlNameString = url ;
             URL realUrl = new URL(urlNameString);
-            // 打开和URL之间的连接
+           
             URLConnection connection = realUrl.openConnection();
             connection.setRequestProperty("encoding", "UTF-8");
             connection.connect();
-            // 定义 BufferedReader输入流来读取URL的响应
+            
             in = new BufferedReader(new InputStreamReader(
                     connection.getInputStream(),"UTF-8"));
             String line;
@@ -48,7 +48,7 @@ public class BaiduTranslate {
             System.out.println("发送GET请求出现异常！" + e);
             e.printStackTrace();
         }
-        // 使用finally块来关闭输入流
+       
         finally {
             try {
                 if (in != null) {
