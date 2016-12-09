@@ -66,7 +66,8 @@ public class BingTranslate {
 		while(m1.find()&&m2.find()){
 			result+=m1.group(1)+" "+m2.group(1)+"\n";
 		}
-		
+		if (result.equals(""))
+			result = "@ERROR";
 		return result;
 	}
 

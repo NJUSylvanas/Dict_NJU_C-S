@@ -70,7 +70,10 @@ public class YoudaoTranslate {
 		while(m.find()){
 			result+=m.group(1)+"\n";
 		}
-		return result;
+		if (result.equals(""))
+			result = "@ERROR";
+		return result;//"@ERROR"
+		
 	}
 	public static void main(String []args){
 		Scanner s = new Scanner(System.in);
