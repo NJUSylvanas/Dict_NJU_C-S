@@ -68,7 +68,7 @@ public class YoudaoTranslate {
 		Pattern p = Pattern.compile("\"(.*?)\"");
 		Matcher m = p.matcher(undo_result);
 		while(m.find()){
-			result+=m.group(1)+"\n";
+			result+=m.group(1)+"$";
 		}
 		if (result.equals(""))
 			result = "@ERROR";

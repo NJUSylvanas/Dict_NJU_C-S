@@ -64,7 +64,7 @@ public class BingTranslate {
 		Matcher m2 = p2.matcher(undo_result);
 		String result="";
 		while(m1.find()&&m2.find()){
-			result+=m1.group(1)+" "+m2.group(1)+"\n";
+			result+=m1.group(1)+" "+m2.group(1)+"$";
 		}
 		if (result.equals(""))
 			result = "@ERROR";
