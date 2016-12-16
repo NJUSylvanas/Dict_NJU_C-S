@@ -107,7 +107,9 @@ public class Data {
 		sql = "UPDATE Users SET Password='"+user[2]+"' WHERE Username='"+user[0]+"'"+" AND Password='"+user[1]+"'";
 		try{
 			statement.executeUpdate(sql);
-			result = "106";
+			ResultSet rs = statement.executeQuery("SELECT * FROM Users WHERE Username='"+user[0]+"'"+" AND Password='"+user[2]+"'");
+			if(rs.next())
+				result = "106";
 		}
 		catch (SQLException e){
 			
@@ -164,7 +166,7 @@ public class Data {
 			statement.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 	}
@@ -186,6 +188,23 @@ public class Data {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
+		return result;
+	}
+	
+	public String GetOnline(String user){
+		String result="";
+		String sql="SELECT * FROM Users WHERE Online = 1 AND Username !='"+user+"'";
+		try {
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()){
+				String temp=rs.getString("Username").trim();
+				result = result+"#"+temp;
+			}
+		} catch (SQLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 	
