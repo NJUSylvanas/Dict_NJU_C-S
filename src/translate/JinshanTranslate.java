@@ -35,7 +35,7 @@ public class JinshanTranslate {
             }
     //        System.out.println(result);
             int start = result.indexOf("<pos>");
-            int end = result.lastIndexOf("</acceptation>");
+            int end = result.lastIndexOf("</acceptation>")+14;
             if(start == -1){
             	result="";
             }

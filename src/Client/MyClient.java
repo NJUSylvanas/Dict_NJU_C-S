@@ -11,7 +11,7 @@ public class MyClient {
 			  BufferedReader in;
 			  PrintWriter out;
 			  
-			  Socket socket = new Socket("114.212.132.185",port);
+			  Socket socket = new Socket("172.26.72.81",port);
 			  while(true){
 			  in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			  out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
@@ -22,6 +22,7 @@ public class MyClient {
 			  
 			  String l=in.readLine();
 			  l = l.replace('$', '\n');
+			  
 			  System.out.print(l);
 			  //String l="";
 			  /*String temp;
