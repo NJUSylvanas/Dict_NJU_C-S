@@ -158,39 +158,22 @@ public class MyServer {
 						out.println("306");
 						break;
 					case 401://分享
-						String[] users=new String[op.length-2];
-						for(int i=0;i<op.length-2;i++)
-							users[i]=op[i+2];
+					
 						out.println("402");
-						Socket my_socket = pool.get(op[1]);
-						DataInputStream dis = null;
-					    FileOutputStream fos = null;
-						byte[] inputByte = new byte[102400000];
-						dis = new DataInputStream(socket.getInputStream());
-						fos = new FileOutputStream(new File("D:\\test.jpg"));
-						int length=0;
-						length = dis.read(inputByte, 0, inputByte.length);
-						while (length > 0) {
-		//					 System.out.println(length);
-			                 fos.write(inputByte, 0, length);
-			                 fos.flush();
-			                 length = dis.read(inputByte, 0, inputByte.length);
-			            }
-						for(int i=0;i<users.length;i++){
-							Socket temp_socket = pool.get(users[i]);
-							
-						    DataOutputStream dos = null;
-						    FileInputStream fis = null;
-						   
-						    dos = new DataOutputStream(temp_socket.getOutputStream());
-						    fis = new FileInputStream(new File("D:\\test.jpg"));
-						    byte[] sendBytes = new byte[1024];
-						    while ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0) {
-			                    dos.write(sendBytes, 0, length);
-			                    dos.flush();
-			                }
-					        
+						ServerSocket sr = new ServerSocket(9900);
+						Socket temp_socket = sr.accept();
+						DataInputStream sin = new DataInputStream(temp_socket.getInputStream());
+						FileOutputStream sout = new FileOutputStream(new File("D:\\test\\jpg\\to.jpg"));
+						byte[] bytes = new byte[1024];
+						int length = 0;
+						while((length=sin.read(bytes,0,bytes.length))>0){
+							sout.write(bytes, 0, length);
+							sout.flush();
 						}
+						sout.close();
+						temp_socket.close();
+						sr.close();
+						sendPicture(op[2]);
 						break;
 					case 501:
 						Data data12 = new Data();
@@ -227,5 +210,30 @@ public class MyServer {
 			
 		}
 		
+	}
+	public void sendPicture(String user){
+		while(true){
+			Socket sk = pool.get(user);
+			DataOutputStream tout;
+			try {
+				tout = new DataOutputStream(sk.getOutputStream());
+				FileInputStream tin = new FileInputStream(new File("D:\\test\\jpg\\to.jpg"));
+				byte[] tbytes = new byte[1024];
+				int tlength = 0;
+				while((tlength=tin.read(tbytes, 0, tbytes.length))>0){
+					tout.write(tbytes,0,tlength);
+					tout.flush();
+				}
+				Thread.sleep(1000);
+				tin.close();
+				sk.close();
+				if(tlength==-1)
+					break;
+			} catch (IOException | InterruptedException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+			
+		}
 	}
 }
